@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kritagya Bhandari — Choktira | Digital Marketing Expert</title>
+<meta name="description" content="Choktira by Kritagya Bhandari — Surrounding your brand from every direction. Digital marketing, strategy, lead generation, and growth." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root{
+    --bg:#000000;
+    --bg-soft:#08090b;
+    --card:#0c0d10;
+    --line:#16181d;
+    --text:#ffffff;
+    --muted:#9a9ea7;
+    --accent:#00d4ff;
+    --accent-soft:rgba(0,212,255,0.12);
+    --accent-glow:rgba(0,212,255,0.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{line-height:1.6;scroll-behavior:smooth}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--accent);color:#000}
+
+  /* NAVBAR */
+  .navbar{
+    position:fixed;
+    top:24px;
+    right:24px;
+    z-index:50;
+    background:rgba(10,11,14,0.55);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:10px 18px;
+    display:flex;
+    gap:6px;
+    align-items:center;
+    box-shadow:0 8px 30px rgba(0,0,0,0.35);
+  }
+  .navbar a{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    padding:8px 14px;
+    border-radius:999px;
+    color:var(--muted);
+    transition:all .25s ease;
+  }
+  .navbar a:hover{color:var(--text);background:var(--accent-soft);box-shadow:0 0 16px var(--accent-glow) inset}
+  .nav-toggle{display:none}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    height:100vh;
+    width:100%;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding-bottom:80px;
+  }
+  .hero video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.0) 30%,rgba(0,0,0,0.0) 60%,rgba(0,0,0,0.85) 100%);
+    z-index:2;
+  }
+  .hero-content{
+    position:relative;
+    z-index:3;
+    text-align:center;
+    padding:0 24px;
+  }
+  .hero-tagline{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(14px,1.6vw,18px);
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--text);
+    opacity:0;
+  }
+  .hero-tagline .dot{color:var(--accent);text-shadow:0 0 14px var(--accent-glow)}
+  .scroll-arrow{
+    margin-top:34px;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    border:1px solid var(--accent);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 16px var(--accent-glow);
+    animation:bounce 1.8s infinite;
+  }
+  .scroll-arrow svg{stroke:var(--accent);width:16px;height:16px}
+  @keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(10px)}
+  }
+
+  /* SECTION BASE */
+  section{padding:140px 24px;position:relative}
+  .container{max-width:1180px;margin:0 auto}
+  .section-label{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;
+    letter-spacing:0.4em;
+    color:var(--accent);
+    text-transform:uppercase;
+    display:inline-block;
+    margin-bottom:24px;
+    padding:6px 14px;
+    border:1px solid var(--accent);
+    border-radius:999px;
+    box-shadow:0 0 18px var(--accent-glow) inset;
+  }
+  .section-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(34px,5vw,56px);
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    margin-bottom:60px;
+  }
+  .section-title .accent{color:var(--accent)}
+
+  /* ABOUT */
+  .about{text-align:center}
+  .about-text{
+    max-width:920px;
+    margin:0 auto;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(20px,2.2vw,30px);
+    line-height:1.55;
+    font-weight:400;
+    color:#e8eaee;
+    letter-spacing:-0.01em;
+  }
+  .about-text .highlight{color:var(--accent);font-weight:500}
+  .about-name{
+    display:block;
+    margin-top:36px;
+    font-size:clamp(15px,1.4vw,17px);
+    letter-spacing:0.4em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-family:'Inter',sans-serif;
+  }
+  .about-name strong{color:var(--text);font-weight:600}
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px;
+  }
+  .service-card{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:38px 28px 32px;
+    overflow:hidden;
+    transition:transform .4s ease,border-color .4s ease;
+  }
+  .service-card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);
+    box-shadow:0 0 24px var(--accent-glow);
+  }
+  .service-card::after{
+    content:"";
+    position:absolute;
+    top:-40px;left:50%;
+    transform:translateX(-50%);
+    width:60%;
+    height:80px;
+    background:radial-gradient(ellipse at center,var(--accent-glow),transparent 70%);
+    filter:blur(20px);
+    opacity:.6;
+    pointer-events:none;
+  }
+  .service-card:hover{transform:translateY(-6px);border-color:rgba(0,212,255,0.35)}
+  .service-icon{
+    width:46px;height:46px;
+    border-radius:12px;
+    background:var(--accent-soft);
+    border:1px solid rgba(0,212,255,0.25);
+    display:inline-flex;align-items:center;justify-content:center;
+    color:var(--accent);
+    margin-bottom:22px;
+    box-shadow:0 0 18px var(--accent-glow) inset;
+  }
+  .service-icon svg{width:22px;height:22px;stroke:var(--accent)}
+  .service-card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:21px;
+    font-weight:600;
+    margin-bottom:12px;
+    letter-spacing:-0.01em;
+  }
+  .service-card p{font-size:14.5px;color:var(--muted);line-height:1.7}
+
+  /* WORK */
+  .work-intro{
+    max-width:760px;
+    margin:0 auto 60px;
+    text-align:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(18px,1.8vw,22px);
+    color:#dcdfe5;
+    line-height:1.6;
+  }
+  .work-intro em{color:var(--accent);font-style:normal}
+  .work-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+  }
+  .work-card{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--accent);
+    border-radius:18px;
+    aspect-ratio:4/5;
+    overflow:hidden;
+    box-shadow:0 0 0 1px rgba(0,212,255,0.15),0 10px 40px rgba(0,212,255,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:transform .4s ease,box-shadow .4s ease;
+  }
+  .work-card:hover{transform:translateY(-6px);box-shadow:0 0 0 1px var(--accent),0 14px 50px rgba(0,212,255,0.18)}
+  .work-card::before{
+    content:"";
+    position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 0%,rgba(0,212,255,0.18),transparent 60%);
+    pointer-events:none;
+  }
+  .work-overlay{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:30px;
+  }
+  .work-overlay .badge{
+    display:inline-block;
+    padding:6px 14px;
+    border:1px solid var(--accent);
+    border-radius:999px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:22px;
+    box-shadow:0 0 14px var(--accent-glow) inset;
+  }
+  .work-overlay h4{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:24px;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .work-overlay p{font-size:14px;color:var(--muted)}
+
+  /* CONTACT */
+  .contact-wrap{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:60px;
+    align-items:start;
+  }
+  .contact-intro p{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(18px,1.8vw,22px);
+    color:#dcdfe5;
+    line-height:1.6;
+    margin-bottom:36px;
+  }
+  .socials{display:flex;flex-direction:column;gap:14px}
+  .social-link{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 20px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--card);
+    transition:all .3s ease;
+    font-size:14.5px;
+  }
+  .social-link:hover{border-color:var(--accent);box-shadow:0 0 22px var(--accent-glow) inset;transform:translateX(4px)}
+  .social-link .icon{
+    width:36px;height:36px;border-radius:10px;
+    background:var(--accent-soft);
+    display:inline-flex;align-items:center;justify-content:center;
+    color:var(--accent);
+  }
+  .social-link .icon svg{width:18px;height:18px;stroke:var(--accent);fill:none}
+  .social-link span{color:var(--muted);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:2px}
+  .social-link strong{font-weight:500;color:var(--text);word-break:break-all}
+
+  .contact-form{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:36px 32px;
+  }
+  .form-group{margin-bottom:20px}
+  .form-group label{
+    display:block;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .form-group input,
+  .form-group textarea{
+    width:100%;
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:14px 16px;
+    border-radius:12px;
+    font-family:inherit;
+    font-size:15px;
+    transition:all .25s ease;
+    outline:none;
+    resize:vertical;
+  }
+  .form-group textarea{min-height:130px;font-family:inherit}
+  .form-group input:focus,
+  .form-group textarea:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(0,212,255,0.15),0 0 24px var(--accent-glow);
+    background:#0a0b0e;
+  }
+  .submit-btn{
+    width:100%;
+    padding:15px 22px;
+    background:var(--accent);
+    color:#001016;
+    border:none;
+    border-radius:12px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:all .3s ease;
+    box-shadow:0 0 30px var(--accent-glow);
+  }
+  .submit-btn:hover{transform:translateY(-2px);box-shadow:0 0 40px var(--accent),0 6px 20px rgba(0,212,255,0.4)}
+  .form-status{
+    margin-top:14px;
+    font-size:13px;
+    color:var(--accent);
+    text-align:center;
+    min-height:18px;
+  }
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--line);
+    padding:40px 24px;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    letter-spacing:0.1em;
+  }
+  footer .brand{
+    color:var(--accent);
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+  }
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(40px)}
+
+  /* RESPONSIVE */
+  @media (max-width:860px){
+    .navbar{top:14px;right:14px;padding:8px 10px}
+    .navbar a{font-size:12px;padding:6px 10px}
+    section{padding:100px 20px}
+    .contact-wrap{grid-template-columns:1fr;gap:40px}
+    .hero{padding-bottom:60px}
+    .hero-tagline{letter-spacing:0.22em}
+  }
+  @media (max-width:520px){
+    .navbar{gap:0;flex-wrap:wrap;max-width:calc(100% - 28px);justify-content:flex-end}
+    .navbar a{padding:6px 8px}
+    .section-title{margin-bottom:40px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" aria-label="primary">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#work">Work</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <video autoplay muted loop playsinline preload="auto" poster="">
+    <source src="hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <div class="hero-tagline">Surrounding Your Brand<span class="dot">.</span> Everywhere<span class="dot">.</span></div>
+    <a href="#about" class="scroll-arrow" aria-label="Scroll down">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-label reveal">About</div>
+    <p class="about-text reveal">
+      Every brand has a space — a <span class="highlight">chok</span> — the ground it stands on, the world it belongs to. I build what surrounds it. The strategies, the campaigns, the connections that wrap around your business from every direction — that is what I do.
+      <span class="about-name"><strong>Kritagya Bhandari</strong></span>
+      <span class="about-name" style="margin-top:14px">I don't just market you. <span class="highlight" style="font-weight:600">I surround you.</span></span>
+    </p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-label reveal">What I Do</div>
+    <h2 class="section-title reveal">Services that <span class="accent">surround</span><br>your growth.</h2>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+        </div>
+        <h3>Business Growth Strategy</h3>
+        <p>Blueprints built around your brand. Data, intuition, and direction — fused into a roadmap that compounds momentum month after month.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 21h8"/></svg>
+        </div>
+        <h3>Website Design</h3>
+        <p>Crafted digital spaces where stories breathe and conversions click. Pixel-perfect, performance-tuned, and built to leave a mark.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </div>
+        <h3>Lead Generation</h3>
+        <p>Funnels engineered to find the right people — not just clicks. Real conversations, real customers, real movement for your business.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/></svg>
+        </div>
+        <h3>Email Marketing</h3>
+        <p>Inbox stories that feel personal. Sequences that nurture, convert, and stay — turning subscribers into a community that listens.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+        </div>
+        <h3>Meta Ads</h3>
+        <p>Facebook and Instagram campaigns engineered for scale. Creative that stops the scroll. Targeting that finds the buyer waiting for you.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="container">
+    <div class="section-label reveal">Portfolio</div>
+    <h2 class="section-title reveal">Selected <span class="accent">Work</span>.</h2>
+    <p class="work-intro reveal">Every great portfolio begins with a vision. <em>Mine is being built — one breakthrough campaign at a time.</em></p>
+    <div class="work-grid">
+      <div class="work-card reveal">
+        <div class="work-overlay">
+          <div class="badge">Coming Soon</div>
+          <h4>Project One</h4>
+          <p>A campaign in the making.</p>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <div class="work-overlay">
+          <div class="badge">Coming Soon</div>
+          <h4>Project Two</h4>
+          <p>Where vision meets velocity.</p>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <div class="work-overlay">
+          <div class="badge">Coming Soon</div>
+          <h4>Project Three</h4>
+          <p>Stories surrounding scale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label reveal">Get in Touch</div>
+    <h2 class="section-title reveal">Let's surround<br>your <span class="accent">next move</span>.</h2>
+
+    <div class="contact-wrap">
+      <div class="contact-intro reveal">
+        <p>Have a brand to launch, scale, or reimagine? Reach out — let's build the space that surrounds it from every direction.</p>
+        <div class="socials">
+          <a class="social-link" href="mailto:kritagyabhandari1999@gmail.com">
+            <div class="icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/></svg></div>
+            <div><span>Email</span><strong>kritagyabhandari1999@gmail.com</strong></div>
+          </a>
+          <a class="social-link" href="https://www.facebook.com/share/17RdTg4U4R/" target="_blank" rel="noopener">
+            <div class="icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div>
+            <div><span>Facebook</span><strong>Connect on Facebook</strong></div>
+          </a>
+          <a class="social-link" href="https://www.instagram.com/bhandari_kritagya" target="_blank" rel="noopener">
+            <div class="icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></div>
+            <div><span>Instagram</span><strong>@bhandari_kritagya</strong></div>
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required placeholder="What should I call you?">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="you@yourbrand.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" required placeholder="Tell me about your brand, your vision, your next move..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="brand">Choktira</span> &nbsp;·&nbsp; © 2026 Kritagya Bhandari &nbsp;·&nbsp; Surrounding Your Brand. Everywhere.
+</footer>
+
+<script>
+  // GSAP register
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero entrance
+  gsap.to(".hero-tagline",{opacity:1,y:0,duration:1.4,delay:.6,ease:"power3.out"});
+  gsap.from(".scroll-arrow",{opacity:0,y:-10,duration:1,delay:1.2,ease:"power2.out"});
+
+  // Navbar entrance
+  gsap.from(".navbar",{y:-20,opacity:0,duration:1,delay:.2,ease:"power3.out"});
+
+  // Scroll reveal
+  document.querySelectorAll(".reveal").forEach((el,i)=>{
+    gsap.to(el,{
+      opacity:1,
+      y:0,
+      duration:1,
+      ease:"power3.out",
+      scrollTrigger:{
+        trigger:el,
+        start:"top 85%",
+        toggleActions:"play none none none"
+      }
+    });
+  });
+
+  // Stagger service cards
+  gsap.from(".service-card",{
+    y:60,opacity:0,duration:.9,ease:"power3.out",stagger:.12,
+    scrollTrigger:{trigger:".services-grid",start:"top 80%"}
+  });
+
+  // Stagger work cards
+  gsap.from(".work-card",{
+    y:60,opacity:0,duration:.9,ease:"power3.out",stagger:.15,
+    scrollTrigger:{trigger:".work-grid",start:"top 80%"}
+  });
+
+  // Contact form
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+  form.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    if(!name || !email || !message){
+      status.textContent = "Please fill in every field.";
+      status.style.color = "#ff6b6b";
+      return;
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      status.textContent = "Please enter a valid email.";
+      status.style.color = "#ff6b6b";
+      return;
+    }
+    status.style.color = "var(--accent)";
+    status.textContent = "Thanks, " + name.split(" ")[0] + ". I'll be in touch soon.";
+    form.reset();
+  });
+
+  // Smooth scroll for navbar links
+  document.querySelectorAll('.navbar a, .scroll-arrow').forEach(a=>{
+    a.addEventListener('click',(e)=>{
+      const href = a.getAttribute('href');
+      if(href && href.startsWith('#')){
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if(target){
+          window.scrollTo({top: target.offsetTop - 20, behavior:'smooth'});
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
