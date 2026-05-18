@@ -72,6 +72,12 @@
     z-index:1;display:block;
     margin:0;padding:0;
   }
+  .hero-image{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    object-fit:cover;object-position:center center;
+    z-index:1;display:none;
+    margin:0;padding:0;
+  }
   .hero::after{
     content:"";position:absolute;inset:0;z-index:2;
     background:linear-gradient(180deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.0) 30%,rgba(0,0,0,0.0) 60%,rgba(0,0,0,0.85) 100%);
@@ -345,11 +351,8 @@
   }
   @media (max-width:768px){
     .hero{height:100vh;background:#000000}
-    .hero video{
-      object-fit:cover;
-      object-position:center 20%;
-      background:#000000;
-    }
+    .hero video{display:none}
+    .hero-image{display:block}
   }
   @media (max-width:520px){
     .navbar{padding:14px 12px;gap:14px;flex-wrap:wrap;justify-content:center}
@@ -375,6 +378,8 @@
   <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="">
     <source src="hero.mp4" type="video/mp4">
   </video>
+  <img class="hero-image" src="hero.jpg" alt="Kritagya Bhandari" loading="eager">
+
   <div class="hero-content">
     <div class="hero-tagline">Surrounding Your Brand<span class="dot">.</span> Everywhere<span class="dot">.</span></div>
     <a href="#about" class="scroll-arrow" aria-label="Scroll down">
