@@ -44,7 +44,9 @@
     justify-content:center;
     align-items:center;
     gap:42px;
+    transition:transform .4s ease,opacity .4s ease;
   }
+  .navbar.is-hidden{transform:translateY(-120%);opacity:0;pointer-events:none}
   .navbar a{
     font-family:'Space Mono',monospace;
     font-size:11px;
@@ -68,15 +70,10 @@
   }
   .hero video{
     position:absolute;top:0;left:0;width:100%;height:100%;
-    object-fit:cover;object-position:center top;
+    object-fit:cover;object-position:center center;
     z-index:1;display:block;
     margin:0;padding:0;
-  }
-  .hero-image{
-    position:absolute;top:0;left:0;width:100%;height:100%;
-    object-fit:cover;object-position:center center;
-    z-index:1;display:none;
-    margin:0;padding:0;
+    background:#000;
   }
   .hero::after{
     content:"";position:absolute;inset:0;z-index:2;
@@ -314,12 +311,12 @@
     background:#0a0b0e;
   }
   .submit-btn{
-    width:100%;padding:15px 22px;background:var(--accent);color:#001016;border:none;
+    width:100%;padding:15px 22px;background:#ffffff;color:#000000;border:none;
     border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;
     font-size:14px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;
-    transition:all .3s ease;box-shadow:0 0 30px var(--accent-glow);
+    transition:all .3s ease;box-shadow:0 6px 20px rgba(255,255,255,0.12);
   }
-  .submit-btn:hover{transform:translateY(-2px);box-shadow:0 0 40px var(--accent),0 6px 20px rgba(0,212,255,0.4)}
+  .submit-btn:hover{transform:translateY(-2px);background:#f1f1f1;box-shadow:0 10px 28px rgba(255,255,255,0.2)}
   .form-status{margin-top:14px;font-size:13px;color:#ffffff;text-align:center;min-height:18px}
 
   /* FOOTER */
@@ -351,8 +348,10 @@
   }
   @media (max-width:768px){
     .hero{height:100vh;background:#000000}
-    .hero video{display:none}
-    .hero-image{display:block}
+    .hero video{
+      object-fit:cover;
+      object-position:center center;
+    }
   }
   @media (max-width:520px){
     .navbar{padding:14px 12px;gap:14px;flex-wrap:wrap;justify-content:center}
@@ -375,10 +374,9 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="">
+  <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22g%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2275%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23021e2e%22%2F%3E%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%23010a13%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000000%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fsvg%3E">
     <source src="hero.mp4" type="video/mp4">
   </video>
-  <img class="hero-image" src="hero.jpg" alt="Kritagya Bhandari" loading="eager">
 
   <div class="hero-content">
     <div class="hero-tagline">Surrounding Your Brand<span class="dot">.</span> Everywhere<span class="dot">.</span></div>
@@ -594,7 +592,7 @@
           <label for="message">Your Message</label>
           <textarea id="message" name="message" required placeholder="Tell me about your brand, your vision, your next move..."></textarea>
         </div>
-        <button type="submit" class="submit-btn">Send Message</button>
+        <button type="submit" class="submit-btn">Let's Build Together</button>
         <div class="form-status" id="formStatus"></div>
       </form>
     </div>
@@ -607,19 +605,59 @@
 </footer>
 
 <script>
-  // Hero video: try to autoplay, hide cleanly if it fails
+  // Hero video: try to autoplay, force-play on first user interaction if blocked
   (function(){
     const video = document.getElementById('heroVideo');
     if(!video) return;
+    // Ensure properties are set even if attributes are stripped on iOS
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('muted','');
+    video.setAttribute('playsinline','');
+
     const tryPlay = () => {
       const p = video.play();
-      if(p && p.catch) p.catch(()=>{ /* autoplay blocked — leave it */ });
+      if(p && p.catch) p.catch(()=>{ /* will retry on user interaction */ });
     };
+
     if(video.readyState >= 2) tryPlay();
     video.addEventListener('loadeddata', tryPlay, {once:true});
+    video.addEventListener('canplay', tryPlay, {once:true});
+
+    // Mobile / blocked autoplay fallback — kick playback on first interaction
+    const kick = () => {
+      if(video.paused){
+        video.muted = true;
+        tryPlay();
+      }
+      if(!video.paused){ removeKick(); }
+    };
+    const events = ['touchstart','touchend','click','scroll','keydown'];
+    function removeKick(){
+      events.forEach(e => window.removeEventListener(e, kick, {passive:true}));
+    }
+    events.forEach(e => window.addEventListener(e, kick, {passive:true}));
+
     video.addEventListener('error', ()=>{ video.style.display='none'; });
     const src = video.querySelector('source');
     if(src) src.addEventListener('error', ()=>{ video.style.display='none'; });
+  })();
+
+  // Navbar: hide on scroll down, show at top
+  (function(){
+    const nav = document.querySelector('.navbar');
+    if(!nav) return;
+    const threshold = 40;
+    let ticking = false;
+    const onScroll = () => {
+      const y = window.scrollY || window.pageYOffset;
+      if(y > threshold) nav.classList.add('is-hidden');
+      else nav.classList.remove('is-hidden');
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if(!ticking){ window.requestAnimationFrame(onScroll); ticking = true; }
+    }, {passive:true});
   })();
 
   // GSAP setup
