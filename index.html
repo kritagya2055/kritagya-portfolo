@@ -29,24 +29,31 @@
   a{color:inherit;text-decoration:none}
   ::selection{background:#ffffff;color:#000}
 
-  /* NAVBAR — floating, bottom-centered, fully transparent */
+  /* NAVBAR — vertical sidebar on left edge, transparent */
   .navbar{
     position:fixed;
-    bottom:26px;
-    left:50%;
-    transform:translateX(-50%);
+    left:22px;
+    top:50%;
+    transform:translateY(-50%);
     z-index:50;
     background:transparent;
     border:none;
     padding:0;
     display:flex;
-    gap:6px;
+    flex-direction:column;
+    gap:26px;
     align-items:center;
   }
   .navbar a{
-    font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:0.04em;
-    padding:8px 14px;border-radius:999px;
-    color:rgba(255,255,255,0.7);
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.4);
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    padding:0;
+    border-radius:0;
     transition:color .25s ease;
   }
   .navbar a:hover{color:var(--accent)}
@@ -325,8 +332,8 @@
     .services-grid{grid-template-columns:repeat(3,1fr)}
   }
   @media (max-width:860px){
-    .navbar{bottom:14px;padding:6px 8px}
-    .navbar a{font-size:12px;padding:7px 12px}
+    .navbar{left:14px;gap:20px}
+    .navbar a{font-size:10px;letter-spacing:0.28em}
     section{padding:70px 20px}
     .contact-wrap{grid-template-columns:1fr;gap:40px}
     .hero{padding-bottom:60px}
@@ -335,8 +342,8 @@
     .form-row{grid-template-columns:1fr}
   }
   @media (max-width:520px){
-    .navbar{gap:2px;padding:6px 6px;max-width:calc(100% - 20px)}
-    .navbar a{padding:6px 10px;font-size:11px;letter-spacing:0.02em}
+    .navbar{left:10px;gap:16px}
+    .navbar a{font-size:9.5px;letter-spacing:0.24em}
     .section-title{margin-bottom:36px}
     .services-grid{grid-template-columns:1fr}
   }
